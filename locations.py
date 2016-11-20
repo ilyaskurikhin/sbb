@@ -24,11 +24,12 @@ def save_to_file(stations):
             row = [station[0], str(station[1]), str(station[2])]
             writer.writerow(row)
 
+
 def get_locations(station_names):
-    station_locatins = []
+    station_locations = []
     index = 0 
     for station in station_names:
-        pct = index / len(station_names)
+        pct = 100*index / len(station_names)
         print("\rWe are {0:.2f}% complete. Currect station : {1}".format(pct,station))
         index += 1
         station_locations.append(get_station_location(station))
