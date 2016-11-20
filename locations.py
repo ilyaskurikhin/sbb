@@ -24,6 +24,12 @@ def save_to_file(stations):
             row = [station[0], str(station[1]), str(station[2])]
             writer.writerow(row)
 
+def read_from_file(filename):
+    station_locations = []
+    with open(filename,newline='') as csvfile:
+        reader = csv.reader(csvfile, delimiter=';',quotechar='|')
+        for row in reader:
+            station_locations.append(row[0],float(row[1]),float(row[2]))
 
 def get_locations(station_names):
     station_locations = []
