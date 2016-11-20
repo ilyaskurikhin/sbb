@@ -1,4 +1,4 @@
-import request
+import requests
 import time
 import sys
 import csv
@@ -12,7 +12,7 @@ def get_station_location(station_name):
                 float(response.json()['stations'][0]['coordinate']['x']),
                 float(response.json()['stations'][0]['coordinate']['y']))
     except IndexError:
-        station = ("not found",0.f,0.f)
+        station = ("not found",0,0)
     return station
 
 def save_to_file(stations):
@@ -21,13 +21,14 @@ def save_to_file(stations):
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
         for station in stations:
-            writer.writerow([station[0],station[1],station[2])
+            row = [station[0], str(station[1]), str(station[2])]
+            writer.writerow(row)
 
 def get_locations(station_names):
     station_locatins = []
     index = 0 
     for station in station_names:
-        pct = index / len(train_stops_delay)
+        pct = index / len(station_names)
         print("\rWe are {0:.2f}% complete. Currect station : {1}".format(pct,station))
         index += 1
         station_locations.append(get_station_location(station))
